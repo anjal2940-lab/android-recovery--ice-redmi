@@ -20,7 +20,7 @@ jobs:
         USER_NAME: 'YourName'
         USER_EMAIL: 'YourE-mail@gmail.com'
         DEVICE_TREE: 'https://github.com/anjal2940-lab/android-recovery--ice-redmi-'
-        DEVICE_TREE_BRANCH: 'twrp-12.1'
+        DEVICE_TREE_BRANCH: 'Twrp-12.1'
         DEVICE_PATH: 'device/xiaomi/ice'
         DEVICE_NAME: 'ice'
         BUILD_TARGET: 'boot'
