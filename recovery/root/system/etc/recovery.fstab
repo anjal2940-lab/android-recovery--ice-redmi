@@ -1,20 +1,22 @@
-# Logical Partitions (Dynamic Container)
+# Logical Partitions (Dynamic Container inside super)
 system         /system       ext4    ro    wait,slotselect,logical,first_stage_mount
 vendor         /vendor       ext4    ro    wait,slotselect,logical,first_stage_mount
 product        /product      ext4    ro    wait,slotselect,logical,first_stage_mount
 
 # Core Data / Writable Partitions
-/dev/block/platform/bootdevice/by-name/cache     /cache     ext4    noatime,nosuid,nodev,noauto_da_alloc,async_discard    wait,check,formattable
-/dev/block/platform/bootdevice/by-name/userdata  /data      f2fs    noatime,nosuid,nodev,discard,inline_xattr,inline_data    wait,check,quota,reservedsize=128M,encryptable=footer
-/dev/block/platform/bootdevice/by-name/odm       /odm       ext4    ro    wait,recoveryonly,async_discard
+/dev/block/by-name/md_udc        /metadata     ext4    noatime,nosuid,nodev,discard     wait,check,formattable,first_stage_mount
+/dev/block/by-name/cache         /cache        ext4    noatime,nosuid,nodev,noauto_da_alloc,async_discard    wait,check,formattable
+/dev/block/by-name/userdata      /data         f2fs    noatime,nosuid,nodev,discard,inline_xattr,inline_data    wait,check,quota,reservedsize=128M,encryptable=footer
+/dev/block/by-name/rescue        /rescue       ext4    ro    wait,recoveryonly
 
 # NVRAM & Calibration Metadata
-/dev/block/platform/bootdevice/by-name/protect1  /mnt/vendor/protect_f    ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
-/dev/block/platform/bootdevice/by-name/protect2  /mnt/vendor/protect_s    ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
-/dev/block/platform/bootdevice/by-name/nvdata    /mnt/vendor/nvdata       ext4    noatime,nosuid,nodev,noauto_da_alloc,async_discard    wait,check,formattable
-/dev/block/platform/bootdevice/by-name/nvcfg     /mnt/vendor/nvcfg        ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
-/dev/block/platform/bootdevice/by-name/persist   /mnt/vendor/persist      ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
+/dev/block/by-name/protect1      /mnt/vendor/protect_f    ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
+/dev/block/by-name/protect2      /mnt/vendor/protect_s    ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
+/dev/block/by-name/nvdata        /mnt/vendor/nvdata       ext4    noatime,nosuid,nodev,noauto_da_alloc,async_discard    wait,check,formattable
+/dev/block/by-name/nvcfg         /mnt/vendor/nvcfg        ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
+/dev/block/by-name/persist       /mnt/vendor/persist      ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard    wait,check,formattable
 
 # Storage Removables
-/devices/platform/externdevice* auto       auto    defaults    voldmanaged=sdcard1:auto
-/devices/platform/mt_usb* auto       vfat    defaults    voldmanaged=usbotg:auto
+/devices/platform/externdevice* auto          auto    defaults    voldmanaged=sdcard1:auto
+/devices/platform/mt_usb* auto          vfat    defaults    voldmanaged=usbotg:auto
+
